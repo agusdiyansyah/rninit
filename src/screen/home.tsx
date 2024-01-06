@@ -7,7 +7,7 @@ import Buttons from 'components/buttons';
 import Icons from 'components/icons';
 import { RootStackParamType } from 'components/navigation/type';
 import useHomeController from 'controllers/home.controller';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Image, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 type HomeType = {
@@ -17,50 +17,6 @@ type HomeType = {
 const HomeScreen: React.FC<HomeType> = () => {
     const color = useColor();
     const controller = useHomeController();
-
-    const posts: { title: string; subtitle: string; author: string; color: string }[] = [
-        {
-            title: 'Popular article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-            color: color.systemColor.indigo,
-        },
-        {
-            title: 'Popular article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-            color: color.systemColor.orange,
-        },
-        {
-            title: 'Popular article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-            color: color.systemColor.pink,
-        },
-    ];
-
-    const recent_posts: { title: string; subtitle: string; author: string }[] = [
-        {
-            title: 'Recent article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-        },
-        {
-            title: 'Recent article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-        },
-        {
-            title: 'Recent article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-        },
-        {
-            title: 'Recent article title',
-            subtitle: 'Short text description',
-            author: 'John doe',
-        },
-    ];
 
     return (
         <SafeAreaView>
@@ -81,9 +37,7 @@ const HomeScreen: React.FC<HomeType> = () => {
                                 justifyContent: 'space-between',
                                 padding: 15,
                             }}>
-                            <Text style={[subHead.medium, { color: color.label.secondary }]}>
-                                Popular posts
-                            </Text>
+                            <Text style={[subHead.medium, { color: color.label.secondary }]}>Popular posts</Text>
                             <Pressable
                                 onPress={() => {}}
                                 style={{
@@ -93,9 +47,7 @@ const HomeScreen: React.FC<HomeType> = () => {
                                     justifyContent: 'flex-end',
                                     gap: 8,
                                 }}>
-                                <Text style={[body.semiBold, { color: color.systemColor.blue }]}>
-                                    See all
-                                </Text>
+                                <Text style={[body.semiBold, { color: color.systemColor.blue }]}>See all</Text>
                                 <View style={{ marginTop: 3 }}>
                                     <Icons.Chevron.Right size={15} color={color.systemColor.blue} />
                                 </View>
@@ -104,7 +56,7 @@ const HomeScreen: React.FC<HomeType> = () => {
 
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             {controller.posts.data?.type === 'success' &&
-                                controller.posts.data.payload.map((e, i) => (
+                                controller.posts.data.payload.map((e, i, arr) => (
                                     <View
                                         key={i}
                                         style={{
@@ -114,7 +66,7 @@ const HomeScreen: React.FC<HomeType> = () => {
                                             borderRadius: 16,
                                             padding: 15,
                                             marginLeft: 15,
-                                            marginRight: posts.length - 1 === i ? 15 : 0,
+                                            marginRight: arr.length - 1 === i ? 15 : 0,
                                             flex: 1,
                                             justifyContent: 'space-between',
                                         }}>
@@ -122,18 +74,17 @@ const HomeScreen: React.FC<HomeType> = () => {
                                             <Text
                                                 style={[
                                                     title.primary,
-                                                    { color: 'white', marginBottom: 5 },
+                                                    {
+                                                        color: 'white',
+                                                        marginBottom: 5,
+                                                    },
                                                 ]}>
                                                 {e.title}
                                             </Text>
-                                            <Text style={[body.regular, { color: 'white' }]}>
-                                                {e.subtitle}
-                                            </Text>
+                                            <Text style={[body.regular, { color: 'white' }]}>{e.subtitle}</Text>
                                         </View>
 
-                                        <Text style={[caption.small, { color: 'black' }]}>
-                                            {e.author}
-                                        </Text>
+                                        <Text style={[caption.small, { color: 'black' }]}>{e.author}</Text>
                                     </View>
                                 ))}
                         </ScrollView>
@@ -161,12 +112,8 @@ const HomeScreen: React.FC<HomeType> = () => {
                                 flex: 1,
                                 alignItems: 'center',
                             }}>
-                            <Text style={[title.primary, { color: color.label.primary }]}>
-                                Promo header
-                            </Text>
-                            <Text style={[body.regular, { color: color.label.secondary }]}>
-                                Short text description
-                            </Text>
+                            <Text style={[title.primary, { color: color.label.primary }]}>Promo header</Text>
+                            <Text style={[body.regular, { color: color.label.secondary }]}>Short text description</Text>
                             <Image style={{ marginTop: -40 }} source={images.Saly1IMG} />
                         </View>
                     </View>
@@ -186,9 +133,7 @@ const HomeScreen: React.FC<HomeType> = () => {
                                 paddingHorizontal: 15,
                                 paddingBottom: 15,
                             }}>
-                            <Text style={[subHead.medium, { color: color.label.secondary }]}>
-                                Recent posts
-                            </Text>
+                            <Text style={[subHead.medium, { color: color.label.secondary }]}>Recent posts</Text>
                             <Pressable
                                 onPress={() => {}}
                                 style={{
@@ -198,101 +143,103 @@ const HomeScreen: React.FC<HomeType> = () => {
                                     justifyContent: 'flex-end',
                                     gap: 8,
                                 }}>
-                                <Text style={[body.semiBold, { color: color.systemColor.blue }]}>
-                                    See all
-                                </Text>
+                                <Text style={[body.semiBold, { color: color.systemColor.blue }]}>See all</Text>
                                 <View style={{ marginTop: 3 }}>
                                     <Icons.Chevron.Right size={15} color={color.systemColor.blue} />
                                 </View>
                             </Pressable>
                         </View>
                         {/* top recent post */}
-                        <View style={{ paddingBottom: 15, paddingHorizontal: 15 }}>
-                            <View
-                                style={{
-                                    backgroundColor: color.systemColor.teal,
-                                    borderRadius: 16,
-                                    padding: 15,
-                                    height: 180,
-                                    flex: 1,
-                                    justifyContent: 'space-between',
-                                }}>
-                                <View style={{ width: sizes.width / 2 - 50 }}>
-                                    <Text
-                                        style={[
-                                            title.large,
-                                            { color: color.background.main, marginBottom: 8 },
-                                        ]}>
-                                        {recent_posts[0].title}
-                                    </Text>
-                                    <Text style={[body.regular, { color: color.background.main }]}>
-                                        {recent_posts[0].subtitle}
-                                    </Text>
-                                </View>
-                                <Text style={[caption.small, { color: color.label.primary }]}>
-                                    {recent_posts[0].author}
-                                </Text>
+                        {controller.recent_posts.data?.type === 'success' && (
+                            <Fragment>
                                 <View
                                     style={{
-                                        position: 'absolute',
-                                        right: 0,
-                                        bottom: 0,
+                                        paddingBottom: 15,
+                                        paddingHorizontal: 15,
                                     }}>
-                                    <Image
-                                        style={{ width: 150, height: 150 }}
-                                        source={images.Saly9IMG}
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                        {/* other recent post */}
-                        <View>
-                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                {recent_posts.slice(1).map((e, i) => (
                                     <View
-                                        key={i}
                                         style={{
-                                            padding: 15,
+                                            backgroundColor: color.systemColor.teal,
                                             borderRadius: 16,
-                                            marginLeft: 15,
-                                            marginRight: recent_posts.length - 2 === i ? 15 : 0,
-                                            width: 195,
-                                            height: 190,
+                                            padding: 15,
+                                            height: 180,
                                             flex: 1,
                                             justifyContent: 'space-between',
-                                            backgroundColor: color.background.surface2,
                                         }}>
-                                        <View>
+                                        <View style={{ width: sizes.width / 2 - 50 }}>
                                             <Text
                                                 style={[
-                                                    title.primary,
-                                                    { color: color.label.primary, marginBottom: 8 },
+                                                    title.large,
+                                                    {
+                                                        color: color.background.main,
+                                                        marginBottom: 8,
+                                                    },
                                                 ]}>
-                                                {e.title}
+                                                {controller.recent_posts.data.payload[0].title}
                                             </Text>
-                                            <Text
-                                                style={[
-                                                    body.regular,
-                                                    { color: color.label.secondary },
-                                                ]}>
-                                                {e.subtitle}
-                                            </Text>
+                                            <Text style={[body.regular, { color: color.background.main }]}>{controller.recent_posts.data.payload[0].subtitle}</Text>
                                         </View>
-
-                                        <Text
-                                            style={[caption.small, { color: color.label.primary }]}>
-                                            {e.author}
-                                        </Text>
+                                        <Text style={[caption.small, { color: color.label.primary }]}>{controller.recent_posts.data.payload[0].author}</Text>
+                                        <View
+                                            style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                bottom: 0,
+                                            }}>
+                                            <Image style={{ width: 150, height: 150 }} source={images.Saly9IMG} />
+                                        </View>
                                     </View>
-                                ))}
-                            </ScrollView>
-                        </View>
+                                </View>
+                                {/* other recent post */}
+                                <View>
+                                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                        {controller.recent_posts.data.payload.slice(1).map((e, i, arr) => (
+                                            <View
+                                                key={i}
+                                                style={{
+                                                    padding: 15,
+                                                    borderRadius: 16,
+                                                    marginLeft: 15,
+                                                    marginRight: arr.length - 2 === i ? 15 : 0,
+                                                    width: 195,
+                                                    height: 190,
+                                                    flex: 1,
+                                                    justifyContent: 'space-between',
+                                                    backgroundColor: color.background.surface2,
+                                                }}>
+                                                <View>
+                                                    <Text style={[title.primary, { color: color.label.primary, marginBottom: 8 }]}>{e.title}</Text>
+                                                    <Text
+                                                        style={[
+                                                            body.regular,
+                                                            {
+                                                                color: color.label.secondary,
+                                                            },
+                                                        ]}>
+                                                        {e.subtitle}
+                                                    </Text>
+                                                </View>
+
+                                                <Text style={[caption.small, { color: color.label.primary }]}>{e.author}</Text>
+                                            </View>
+                                        ))}
+                                    </ScrollView>
+                                </View>
+                            </Fragment>
+                        )}
                     </View>
 
                     <View style={{ paddingBottom: 80 }} />
                 </ScrollView>
 
-                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 15 }}>
+                <View
+                    style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        padding: 15,
+                    }}>
                     <Buttons.MD title={'Call To Action'} color={color.systemColor.blue} />
                 </View>
             </View>
