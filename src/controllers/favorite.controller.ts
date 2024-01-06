@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native';
-import useGetPosts from '../common/data/hooks/use.get.posts';
-import useGetUsers from '../common/data/hooks/use.get.users';
+import useAlbumsGet from '../common/data/hooks/use.albums.get';
+import useUsersGet from '../common/data/hooks/use.users.get';
 
 const useFavoriteController = () => {
     const [refresh_top, set_refresh_top] = useState(false);
     const [refresh_bottom, set_refresh_bottom] = useState(false);
 
-    const users = useGetUsers({ autoload: true });
-    const posts = useGetPosts({ autoload: true });
+    const users = useUsersGet({ autoload: true });
+    const posts = useAlbumsGet({ autoload: true });
     const scrolController = useScrollViewController({
         refreshTop: refresh_top,
         refreshBottom: refresh_bottom,
@@ -81,6 +81,9 @@ const useScrollViewController = <OnTopRefreshType, OnBottomRefreshType>({
             e.nativeEvent.contentOffset.y > 0
         ) {
             scrollToY(tinggiKomponen);
+        }
+
+        if (refreshBottom) {
         }
 
         // is top

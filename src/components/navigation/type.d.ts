@@ -1,10 +1,12 @@
 export type RootStackParamType = {
-  Root: undefined;
-  About: undefined;
+    Home: undefined;
+    Chats: undefined;
+    About: undefined | { id: number };
+    Icon: undefined;
 };
 
 export type TabStackParamType = {
-  Home: undefined;
-  Search: undefined;
-  Favorite: undefined;
+    Home: undefined;
+    Search: undefined;
+    Favorite: undefined;
 };

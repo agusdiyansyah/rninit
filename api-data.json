@@ -1,0 +1,54 @@
+{
+    "posts": [
+        {
+            "id": 1,
+            "title": "Popular article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        },
+        {
+            "id": 2,
+            "title": "Popular article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        },
+        {
+            "id": 3,
+            "title": "Popular article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        },
+        {
+            "id": 4,
+            "title": "Popular article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        }
+    ],
+    "recent_posts": [
+        {
+            "id": 1,
+            "title": "Recent article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        },
+        {
+            "id": 2,
+            "title": "Recent article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        },
+        {
+            "id": 3,
+            "title": "Recent article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        },
+        {
+            "id": 4,
+            "title": "Recent article title",
+            "subtitle": "Short text description",
+            "author": "John Doe"
+        }
+    ]
+}

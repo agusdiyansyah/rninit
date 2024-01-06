@@ -1,5 +1,6 @@
 import { BASE_URL } from '@env';
 import axios, { AxiosError, AxiosResponse, CanceledError } from 'axios';
+import * as AxiosLogger from 'axios-logger';
 import { Alert } from 'react-native';
 
 axios.defaults.baseURL = BASE_URL;
@@ -8,17 +9,18 @@ axios.defaults.headers.common.Accept = 'application/json';
 
 const AxiosConf = {
     interceptor: () => {
+        // axios.interceptors.request.use(AxiosLogger.requestLogger);
         axios.interceptors.request.use(config => {
             // const token = local_data().global.token;
             // if (token != '') {
             //     config.headers.Authorization = `Bearer ${token}`;
             // }
 
-            return config;
+            return AxiosLogger.requestLogger(config);
         });
 
         axios.interceptors.response.use(
-            (response: AxiosResponse) => response,
+            (response: AxiosResponse) => AxiosLogger.responseLogger(response),
             (error: AxiosError) => {
                 if (error instanceof CanceledError) {
                     console.log(error);
@@ -44,7 +46,7 @@ const AxiosConf = {
                         break;
                 }
 
-                throw error;
+                throw AxiosLogger.errorLogger(error);
             },
         );
     },
