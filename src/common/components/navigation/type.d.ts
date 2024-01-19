@@ -2,7 +2,7 @@ export type RootStackParamType = {
     Home: undefined;
     Chats: undefined;
     About: undefined | { id: number };
-    Icon: undefined;
+    Posts: undefined;
 };
 
 export type TabStackParamType = {

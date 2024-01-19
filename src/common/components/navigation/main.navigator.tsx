@@ -1,15 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import Icons from 'common/components/icons';
 import images from 'common/constant/images';
 import { subHead } from 'common/constant/typhography';
 import useColor from 'common/hooks/use.color';
-import Icons from 'components/icons';
 import React, { ReactNode } from 'react';
 import { Image, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ChatsScreen from 'screen/chats';
 import HomeScreen from 'screen/home';
-import IconScreen from 'screen/icon';
+import PostsScreen from 'screen/posts';
 import { RootStackParamType } from './type';
 
 const Tab = createBottomTabNavigator<RootStackParamType>();
@@ -20,10 +20,7 @@ const MainNavigator = (): React.JSX.Element => {
         marginTop: 0,
         marginBottom: 5,
     };
-    const tabBarIcon = (props: {
-        focused: boolean;
-        children: 'home' | 'chats' | 'posts';
-    }): ReactNode => {
+    const tabBarIcon = (props: { focused: boolean; children: 'home' | 'chats' | 'posts' }): ReactNode => {
         const colorIcon = props.focused ? color.systemColor.blue : color.systemGrayscale.gray2;
         const icon = {
             home: <Icons.Essentials.Home size={18} color={colorIcon} />,
@@ -99,8 +96,8 @@ const MainNavigator = (): React.JSX.Element => {
                         }}
                     />
                     <Tab.Screen
-                        name={'Icon'}
-                        component={IconScreen}
+                        name={'Posts'}
+                        component={PostsScreen}
                         options={{
                             title: 'My posts',
                             tabBarIcon: ({ focused }) => tabBarIcon({ focused, children: 'posts' }),

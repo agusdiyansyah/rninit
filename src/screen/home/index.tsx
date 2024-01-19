@@ -1,14 +1,15 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Buttons from 'common/components/buttons';
+import Icons from 'common/components/icons';
+import { RootStackParamType } from 'common/components/navigation/type';
 import images from 'common/constant/images';
 import { sizes } from 'common/constant/theme';
 import { body, caption, subHead, title } from 'common/constant/typhography';
 import useColor from 'common/hooks/use.color';
-import Buttons from 'components/buttons';
-import Icons from 'components/icons';
-import { RootStackParamType } from 'components/navigation/type';
-import useHomeController from 'controllers/home.controller';
 import React, { Fragment } from 'react';
 import { Image, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import useHomeController from 'screen/home/controller';
+import PostCardMDComponent from './_components/post.card.md.component';
 
 type HomeType = {
     navigation: NativeStackNavigationProp<RootStackParamType, 'Home'>;
@@ -57,35 +58,17 @@ const HomeScreen: React.FC<HomeType> = () => {
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                             {controller.posts.data?.type === 'success' &&
                                 controller.posts.data.payload.map((e, i, arr) => (
-                                    <View
+                                    <PostCardMDComponent
                                         key={i}
-                                        style={{
-                                            height: sizes.width / 2,
-                                            width: sizes.width / 2,
-                                            backgroundColor: color.systemColor.indigo,
-                                            borderRadius: 16,
-                                            padding: 15,
-                                            marginLeft: 15,
-                                            marginRight: arr.length - 1 === i ? 15 : 0,
-                                            flex: 1,
-                                            justifyContent: 'space-between',
-                                        }}>
-                                        <View>
-                                            <Text
-                                                style={[
-                                                    title.primary,
-                                                    {
-                                                        color: 'white',
-                                                        marginBottom: 5,
-                                                    },
-                                                ]}>
-                                                {e.title}
-                                            </Text>
-                                            <Text style={[body.regular, { color: 'white' }]}>{e.subtitle}</Text>
-                                        </View>
-
-                                        <Text style={[caption.small, { color: 'black' }]}>{e.author}</Text>
-                                    </View>
+                                        title={e.title}
+                                        titleColor={'white'}
+                                        subtitle={e.subtitle}
+                                        subtitleColor={'white'}
+                                        author={e.author}
+                                        backgroundColor={color.systemColor.indigo}
+                                        marginLeft={15}
+                                        marginRight={arr.length - 1 === i ? 15 : 0}
+                                    />
                                 ))}
                         </ScrollView>
                     </View>
@@ -167,25 +150,17 @@ const HomeScreen: React.FC<HomeType> = () => {
                                             justifyContent: 'space-between',
                                         }}>
                                         <View style={{ width: sizes.width / 2 - 50 }}>
-                                            <Text
-                                                style={[
-                                                    title.large,
-                                                    {
-                                                        color: color.background.main,
-                                                        marginBottom: 8,
-                                                    },
-                                                ]}>
+                                            <Text style={[title.large, { color: color.background.main, marginBottom: 8 }]}>
                                                 {controller.recent_posts.data.payload[0].title}
                                             </Text>
-                                            <Text style={[body.regular, { color: color.background.main }]}>{controller.recent_posts.data.payload[0].subtitle}</Text>
+                                            <Text style={[body.regular, { color: color.background.main }]}>
+                                                {controller.recent_posts.data.payload[0].subtitle}
+                                            </Text>
                                         </View>
-                                        <Text style={[caption.small, { color: color.label.primary }]}>{controller.recent_posts.data.payload[0].author}</Text>
-                                        <View
-                                            style={{
-                                                position: 'absolute',
-                                                right: 0,
-                                                bottom: 0,
-                                            }}>
+                                        <Text style={[caption.small, { color: color.label.primary }]}>
+                                            {controller.recent_posts.data.payload[0].author}
+                                        </Text>
+                                        <View style={{ position: 'absolute', right: 0, bottom: 0 }}>
                                             <Image style={{ width: 150, height: 150 }} source={images.Saly9IMG} />
                                         </View>
                                     </View>
@@ -194,34 +169,15 @@ const HomeScreen: React.FC<HomeType> = () => {
                                 <View>
                                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                                         {controller.recent_posts.data.payload.slice(1).map((e, i, arr) => (
-                                            <View
+                                            <PostCardMDComponent
                                                 key={i}
-                                                style={{
-                                                    padding: 15,
-                                                    borderRadius: 16,
-                                                    marginLeft: 15,
-                                                    marginRight: arr.length - 2 === i ? 15 : 0,
-                                                    width: 195,
-                                                    height: 190,
-                                                    flex: 1,
-                                                    justifyContent: 'space-between',
-                                                    backgroundColor: color.background.surface2,
-                                                }}>
-                                                <View>
-                                                    <Text style={[title.primary, { color: color.label.primary, marginBottom: 8 }]}>{e.title}</Text>
-                                                    <Text
-                                                        style={[
-                                                            body.regular,
-                                                            {
-                                                                color: color.label.secondary,
-                                                            },
-                                                        ]}>
-                                                        {e.subtitle}
-                                                    </Text>
-                                                </View>
-
-                                                <Text style={[caption.small, { color: color.label.primary }]}>{e.author}</Text>
-                                            </View>
+                                                title={e.title}
+                                                subtitle={e.subtitle}
+                                                author={e.author}
+                                                backgroundColor={color.background.surface2}
+                                                marginLeft={15}
+                                                marginRight={arr.length - 1 === i ? 15 : 0}
+                                            />
                                         ))}
                                     </ScrollView>
                                 </View>

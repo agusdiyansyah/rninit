@@ -1,20 +1,12 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import images from 'common/constant/images';
+import Icons from 'common/components/icons';
+import { RootStackParamType } from 'common/components/navigation/type';
 import { sizes } from 'common/constant/theme';
 import { body } from 'common/constant/typhography';
 import useColor from 'common/hooks/use.color';
-import Icons from 'components/icons';
-import { RootStackParamType } from 'components/navigation/type';
 import React from 'react';
-import {
-    Image,
-    ImageRequireSource,
-    Pressable,
-    SafeAreaView,
-    ScrollView,
-    Text,
-    View,
-} from 'react-native';
+import { Image, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import useChatsController from './controller';
 
 type ChatsType = {
     navigation: NativeStackNavigationProp<RootStackParamType, 'Chats'>;
@@ -22,50 +14,7 @@ type ChatsType = {
 
 const ChatsScreen: React.FC<ChatsType> = () => {
     const color = useColor();
-
-    const chats: { title: string; subtitle: string; icon: ImageRequireSource }[] = [
-        {
-            icon: images.SkullIMG,
-            title: 'John Doe',
-            subtitle: 'Text message preview long text in two strokes',
-        },
-        {
-            icon: images.AlienIMG,
-            title: 'Samuel Smith',
-            subtitle: 'Text message preview',
-        },
-        {
-            icon: images.RobotIMG,
-            title: 'John Doe',
-            subtitle: 'Text message preview long text',
-        },
-        {
-            icon: images.ClownIMG,
-            title: 'Samuel Smith',
-            subtitle: 'Text message preview',
-        },
-
-        {
-            icon: images.TenguIMG,
-            title: 'John Doe',
-            subtitle: 'Text message preview long text in two strokes',
-        },
-        {
-            icon: images.AlienIMG,
-            title: 'Samuel Smith',
-            subtitle: 'Text message preview',
-        },
-        {
-            icon: images.RobotIMG,
-            title: 'John Doe',
-            subtitle: 'Text message preview long text',
-        },
-        {
-            icon: images.ClownIMG,
-            title: 'Samuel Smith',
-            subtitle: 'Text message preview',
-        },
-    ];
+    const c = useChatsController();
 
     return (
         <SafeAreaView>
@@ -75,7 +24,7 @@ const ChatsScreen: React.FC<ChatsType> = () => {
                         backgroundColor: color.background.main,
                         minHeight: sizes.height - 130,
                     }}>
-                    {chats.map((e, i) => (
+                    {c.lists.map((e, i) => (
                         <View
                             key={i}
                             style={{
@@ -112,14 +61,10 @@ const ChatsScreen: React.FC<ChatsType> = () => {
 
                             <View style={{ flex: 2, flexGrow: 10 }}>
                                 <View>
-                                    <Text style={[body.semiBold, { color: color.label.primary }]}>
-                                        {e.title}
-                                    </Text>
+                                    <Text style={[body.semiBold, { color: color.label.primary }]}>{e.title}</Text>
                                 </View>
                                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <Text style={[body.regular, { color: color.label.secondary }]}>
-                                        {e.subtitle}
-                                    </Text>
+                                    <Text style={[body.regular, { color: color.label.secondary }]}>{e.subtitle}</Text>
                                 </View>
                             </View>
                         </View>
